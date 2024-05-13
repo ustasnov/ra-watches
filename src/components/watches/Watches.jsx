@@ -4,12 +4,16 @@ import Watch from "../watch/Watch";
 import './Watches.css'
 
 export default class Watches extends Component {
-  constructor() {
-    super();
-    this.watches = [];
+  constructor(props) {
+    super(props);
+    this.props = props;
+    //console.log(this.props.watches);
   }
 
   render() {
+
+    const {watches} = this.props;
+    console.log(watches);
 
     return (
       <div className="watches-container">
@@ -23,12 +27,10 @@ export default class Watches extends Component {
           <button className="add-btn">Добавить</button>
         </form>
         <div className="watches-list">
-          {this.watches.map((el) => {
-            <Watch {...el}></Watch>
-          })}
+          {watches.map((el) => <Watch key={el} {...el}></Watch>)}
         </div>
       </div>
-    )
+    );
   }
 }
 
