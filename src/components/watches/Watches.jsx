@@ -28,6 +28,11 @@ export default class Watches extends Component {
     descrEl.focus();
   }
 
+  componentWillUnmount() {
+    const formEl = document.querySelector(".watches-form");
+    formEl.removeEventListener("onsubmit", this.onSubmitHandler);
+  }
+
   onSubmitHandler = (ev) => {
     const descrEl = ev.target.querySelector(".watch-descr");
     const zoneEl = ev.target.querySelector(".watch-zone");
@@ -85,5 +90,3 @@ export default class Watches extends Component {
     );
   }
 }
-
-

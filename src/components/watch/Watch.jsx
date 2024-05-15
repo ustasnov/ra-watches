@@ -1,5 +1,5 @@
 import { Component } from "react";
-import PropTypes, { number } from "prop-types";
+import PropTypes from "prop-types";
 import "./Watch.css"
 
 export default class Watch extends Component {
@@ -18,9 +18,10 @@ export default class Watch extends Component {
   }
 
   componentWillUnmount() {
-    console.log("In componentWillUnmount")
     clearInterval(this.interval);
     this.interval = null;
+    const delBtnEl = document.querySelector(`.delete-btn-${this.props.id}`);
+    delBtnEl.removeEventListener("onclick", this.onDelete);
   }
 
   getTimeByZoneOffset() {
@@ -48,14 +49,14 @@ export default class Watch extends Component {
           <div className="description">{this.props.description}</div>
           <div className="time">{time}</div>
         </div>
-        <button className="delete-btn" onClick={this.onDelete}>Х</button>
+        <button className={`delete-btn delete-btn-${this.props.id}`} onClick={this.onDelete}>Х</button>
       </div>
     );
   }
 }
 
 Watch.propTypes = {
-  id: number,
+  id: PropTypes.string,
   description: PropTypes.string,
   zone: PropTypes.number,
   callback: PropTypes.func
